@@ -1,15 +1,7 @@
-const parser     = require("solidity-parser");
+const parser     = require('solidity-parser');
 const asciiTable = require('ascii-table');
-
-if(process.argv.length < 3) {
-  console.log("Error: Missing argument for sol file to scan");
-  process.exit(1);
-}
-
-var target   = process.argv[2],
-    contract = parser.parseFile(target);
-
-generateReport(target, contract);
+// const readFileTree = require('read-file-tree');
+const getAllFiles = require('./utils.js').getAllFiles;
 
 function generateReport(target, contract) {
   var table = new asciiTable(target);
@@ -27,6 +19,25 @@ function generateReport(target, contract) {
   })
   console.log(table.toString());
 }
+
+
+
+function generateReportForDir(dir){
+  const files = getAllFiles(dir);
+  files.filter(file => file.split('.').pop() == 'sol')
+    .forEach(file => {
+      // console.log(`Report for ${file}`)
+      try {
+        contract = parser.parseFile(file);
+        generateReport(file, contract);
+      } catch(e) {
+        // The parser doesn't handle some newer features in solidity. 
+        // For now we just print the error and go to the next contract.
+        console.log(`Error in File: ${file}`, e);
+      }
+    })
+}
+
 
 function parseFunctionPart(contract, part) {
   var contractName = contract.name,
@@ -84,4 +95,9 @@ function parseFunctionPart(contract, part) {
     returns:    returns,
     modifiers:  custom
   }
+}
+
+module.exports = {
+  generateReport,
+  generateReportForDir,
 }
