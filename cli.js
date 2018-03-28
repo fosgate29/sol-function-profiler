@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const profiler    = require('./index.js');
 const argv        = require('yargs').argv;
 const parser      = require("solidity-parser");

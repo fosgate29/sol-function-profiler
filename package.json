@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "sol-function-profiler": "./cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EricR/sol-function-profiler.git"
