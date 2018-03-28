@@ -5,9 +5,10 @@ A command line tool that generates a human-consumable report listing a contract'
 Usage Example:
 
 ```
-$ npm install
+$ npm install -g GITHUB_URL
 ...
-$ node index.js ~/contracts/mytoken.sol
+
+$ sol-function-profiler ~/contracts/mytoken.sol
 .--------------------------------------------------------------------------------------------------------.
 |                                        ~/contracts/mytoken.sol                                         |
 |--------------------------------------------------------------------------------------------------------|
@@ -20,3 +21,7 @@ $ node index.js ~/contracts/mytoken.sol
 | MyToken       | kill()                        | internal   | false    |           |                    |
 '--------------------------------------------------------------------------------------------------------'
 ```
+
+You can also give a directory as an argument using the `--dir` flag, this will generate a report on all files ending in `.sol` the directory or its subdirectories.
+
+`$ sol-function-profiler --dir ~/contracts`
